@@ -1,507 +1,413 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Bananapeeely's Community – Ban Appeal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Bananapeeely's Community</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-    :root {
-        --bg: #05060a;
-        --card: #11131b;
-        --accent: #f7d84b;
-        --accent-soft: #ffe680;
-        --text-muted: #a5a7b5;
-    }
 
-    * {
-        box-sizing: border-box;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
 
-    body {
-        margin: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
-        background: radial-gradient(circle at top, #151827 0, #05060a 55%);
-        color: #fff;
-        overflow-x: hidden;
-        overflow-y: auto;
-        min-height: 100vh;
-    }
+body{
 
-    /* Center helper */
-    .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+background:linear-gradient(-45deg,#ffcb05,#ffd94d,#ffea87,#ffe38b);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
 
-    /* Loading screen */
-    #loadingScreen {
-        position: fixed;
-        inset: 0;
-        background: #05060a;
-        z-index: 999;
-        flex-direction: column;
-        gap: 18px;
-        text-align: center;
-    }
+display:flex;
+justify-content:center;
+align-items:center;
 
-    #bananaIcon {
-        font-size: 4.5rem;
-        animation: bounce 1s infinite;
-    }
+height:100vh;
+overflow:hidden;
+color:white;
 
-    #loadingText {
-        font-size: 1.2rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-    }
+}
 
-    .progress-bar {
-        width: 220px;
-        height: 8px;
-        border-radius: 999px;
-        background: #1b1d27;
-        overflow: hidden;
-        margin-top: 6px;
-    }
+@keyframes bg{
 
-    .progress-fill {
-        height: 100%;
-        width: 0%;
-        background: linear-gradient(90deg, #f7d84b, #ffe680);
-        transition: width 0.25s ease-out;
-    }
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 
-    @keyframes bounce {
-        0% { transform: translateY(0); }
-        50% { transform: translateY(-14px); }
-        100% { transform: translateY(0); }
-    }
+}
 
-    @keyframes fadeOut {
-        to { opacity: 0; visibility: hidden; }
-    }
+.glass{
 
-    /* Main layout */
-    #app {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 40px 18px 60px;
-    }
+width:700px;
+max-width:92%;
 
-    header {
-        text-align: center;
-        margin-bottom: 32px;
-    }
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(18px);
 
-    header h1 {
-        font-size: 2.1rem;
-        margin: 0;
-    }
+border-radius:25px;
 
-    header p {
-        margin-top: 10px;
-        color: var(--text-muted);
-        font-size: 0.98rem;
-    }
+padding:40px;
 
-    .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(247, 216, 75, 0.08);
-        color: var(--accent-soft);
-        font-size: 0.8rem;
-        margin-bottom: 12px;
-    }
+box-shadow:0 15px 40px rgba(0,0,0,.25);
 
-    /* Card */
-    .card {
-        background: radial-gradient(circle at top left, #1b1d27 0, #10121a 55%);
-        border-radius: 18px;
-        padding: 22px 20px 24px;
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-        border: 1px solid rgba(255, 255, 255, 0.04);
-    }
+text-align:center;
 
-    .card-title {
-        font-size: 1.2rem;
-        margin-bottom: 6px;
-    }
+}
 
-    .card-sub {
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        margin-bottom: 18px;
-    }
+h1{
 
-    /* Buttons */
-    .btn {
-        border: none;
-        outline: none;
-        cursor: pointer;
-        border-radius: 999px;
-        padding: 11px 22px;
-        font-size: 0.95rem;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
+font-size:34px;
+margin-bottom:15px;
 
-    .btn-primary {
-        background: linear-gradient(135deg, #f7d84b, #ffe680);
-        color: #11131b;
-        box-shadow: 0 10px 24px rgba(247, 216, 75, 0.35);
-    }
+}
 
-    .btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 14px 30px rgba(247, 216, 75, 0.45);
-    }
+p{
 
-    .btn-ghost {
-        background: transparent;
-        color: var(--text-muted);
-    }
+opacity:.9;
 
-    .btn-ghost:hover {
-        background: rgba(255, 255, 255, 0.04);
-    }
+}
 
-    /* Sections */
-    #introSection,
-    #formSection,
-    #confirmSection,
-    #successSection {
-        display: none;
-        animation: fadeIn 0.35s ease;
-    }
+button{
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+margin-top:20px;
 
-    /* Form */
-    .form-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 14px;
-        margin-top: 10px;
-    }
+padding:14px 35px;
 
-    .field-label {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 4px;
-    }
+border:none;
+border-radius:14px;
 
-    .field-label span {
-        color: var(--accent-soft);
-        margin-right: 4px;
-    }
+background:#ffd400;
 
-    input, textarea {
-        width: 100%;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        background: rgba(10, 11, 16, 0.9);
-        color: #fff;
-        padding: 10px 11px;
-        font-size: 0.92rem;
-        outline: none;
-        transition: border 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
+font-size:18px;
+font-weight:600;
 
-    input:focus, textarea:focus {
-        border-color: rgba(247, 216, 75, 0.7);
-        box-shadow: 0 0 0 1px rgba(247, 216, 75, 0.4);
-        background: rgba(10, 11, 16, 1);
-    }
+cursor:pointer;
 
-    textarea {
-        min-height: 90px;
-        resize: vertical;
-    }
+transition:.3s;
 
-    .error {
-        border-color: #ff6b6b !important;
-        box-shadow: 0 0 0 1px rgba(255, 107, 107, 0.4) !important;
-    }
+}
 
-    .helper {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-top: 4px;
-    }
+button:hover{
 
-    /* Footer note */
-    .footer-note {
-        margin-top: 18px;
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        text-align: right;
-    }
+transform:scale(1.05);
 
-    @media (min-width: 720px) {
-        .form-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+background:#fff176;
 
-        .form-grid textarea {
-            grid-column: 1 / -1;
-        }
-    }
+}
+
+input,textarea{
+
+width:100%;
+
+padding:15px;
+
+margin-top:15px;
+
+border:none;
+border-radius:12px;
+
+font-size:16px;
+
+background:rgba(255,255,255,.2);
+
+color:white;
+
+outline:none;
+
+}
+
+textarea{
+
+resize:none;
+height:120px;
+
+}
+
+::placeholder{
+
+color:white;
+
+opacity:.8;
+
+}
+
+.hidden{
+
+display:none;
+
+}
+
+#banana{
+
+font-size:120px;
+animation:bounce 1s infinite;
+
+}
+
+@keyframes bounce{
+
+50%{
+
+transform:translateY(-15px);
+
+}
+
+}
+
+.progress{
+
+width:100%;
+height:18px;
+
+background:rgba(255,255,255,.2);
+
+border-radius:50px;
+
+margin-top:30px;
+
+overflow:hidden;
+
+}
+
+.bar{
+
+height:100%;
+width:0%;
+
+background:white;
+
+transition:.1s;
+
+}
+
+#percent{
+
+margin-top:10px;
+font-size:22px;
+
+}
+
+.success{
+
+font-size:30px;
+font-weight:600;
+
+}
+
 </style>
+
 </head>
+
 <body>
 
-<!-- Loading -->
-<div id="loadingScreen" class="center">
-    <div>
-        <div id="bananaIcon">🍌</div>
-        <div id="loadingText">Preparing Bananapeeely's Community</div>
-        <div class="progress-bar">
-            <div id="progressFill" class="progress-fill"></div>
-        </div>
-    </div>
+<div class="glass" id="loading">
+
+<div id="banana">🍌</div>
+
+<h1>Bananapeeely's Community</h1>
+
+<div class="progress">
+
+<div class="bar" id="bar"></div>
+
 </div>
 
-<!-- App -->
-<div id="app">
-    <header>
-        <div class="pill">
-            <span>🍌</span>
-            <span>Bananapeeely's Community</span>
-        </div>
-        <h1>Ban Appeal Portal</h1>
-        <p>Appeal your ban from the community with a clear, simple form. Staff will review your appeal as soon as possible.</p>
-    </header>
+<div id="percent">0%</div>
 
-    <!-- Intro -->
-    <section id="introSection">
-        <div class="card">
-            <div class="card-title">Fill out ban appeal form</div>
-            <div class="card-sub">You’ll be asked for your Discord and Roblox details, plus the reason you were banned.</div>
-            <button class="btn btn-primary" id="startBtn">
-                Yes, start appeal
-                <span>→</span>
-            </button>
-        </div>
-    </section>
+</div>
 
-    <!-- Form -->
-    <section id="formSection">
-        <div class="card">
-            <div class="card-title">Ban Appeal Form</div>
-            <div class="card-sub">Please answer honestly. False information may result in your appeal being denied.</div>
+<div class="glass hidden" id="welcome">
 
-            <div class="form-grid">
-                <div>
-                    <div class="field-label"><span>🍌</span>Discord username</div>
-                    <input id="discordUsername" placeholder="Example: Bananapeeely#1234">
-                </div>
+<h1>Fill out Ban Appeal Form</h1>
 
-                <div>
-                    <div class="field-label"><span>🆔</span>Discord ID</div>
-                    <input id="discordID" placeholder="Right-click your profile → Copy ID">
-                </div>
+<p>Please answer honestly.</p>
 
-                <div>
-                    <div class="field-label"><span>🎮</span>Roblox username</div>
-                    <input id="robloxUsername" placeholder="Example: BananapeeelyOfficial">
-                </div>
+<button onclick="startForm()">Yes</button>
 
-                <div>
-                    <div class="field-label"><span>⚠️</span>Reason for ban</div>
-                    <textarea id="banReason" placeholder="Explain what happened and why you believe you should be unbanned."></textarea>
-                </div>
-            </div>
+</div>
 
-            <div class="helper">All fields are required. Make sure everything is accurate before continuing.</div>
+<div class="glass hidden" id="formBox">
 
-            <div style="margin-top: 18px; display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;">
-                <button class="btn btn-primary" id="continueBtn">
-                    Continue
-                    <span>→</span>
-                </button>
-                <button class="btn btn-ghost" id="backToIntroBtn">
-                    Back
-                </button>
-            </div>
-        </div>
-    </section>
+<h1>Ban Appeal</h1>
 
-    <!-- Confirm -->
-    <section id="confirmSection">
-        <div class="card">
-            <div class="card-title">Are you happy with this?</div>
-            <div class="card-sub">Check your details one more time. When you submit, your appeal will be sent directly to staff via Discord.</div>
+<input id="discordUser" placeholder="Discord Username">
 
-            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
-                <strong>Discord username:</strong> <span id="summaryDiscordUsername"></span><br>
-                <strong>Discord ID:</strong> <span id="summaryDiscordID"></span><br>
-                <strong>Roblox username:</strong> <span id="summaryRobloxUsername"></span><br>
-                <strong>Reason for ban:</strong><br>
-                <span id="summaryBanReason"></span>
-            </div>
+<input id="discordID" placeholder="Discord ID">
 
-            <div style="display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;">
-                <button class="btn btn-primary" id="submitBtn">
-                    Yes, submit appeal
-                    <span>✔</span>
-                </button>
-                <button class="btn btn-ghost" id="editBtn">
-                    Go back and edit
-                </button>
-            </div>
-        </div>
-    </section>
+<input id="robloxUser" placeholder="Roblox Username">
 
-    <!-- Success -->
-    <section id="successSection">
-        <div class="card">
-            <div class="card-title">Appeal submitted</div>
-            <div class="card-sub">Your ban appeal has been sent to the staff team. They’ll review it and contact you via Discord.</div>
-            <div class="helper">You can close this page now. Please keep your DMs open so staff can reach you if needed.</div>
-        </div>
-    </section>
+<textarea id="reason" placeholder="Reason for ban"></textarea>
 
-    <div class="footer-note">
-        Powered by Bananapeeely's Community · Appeals are reviewed manually by staff.
-    </div>
+<button onclick="confirmSend()">Submit</button>
+
+</div>
+
+<div class="glass hidden" id="success">
+
+<div class="success">✅ Appeal Sent!</div>
+
+<p>Thank you for submitting your appeal.</p>
+
 </div>
 
 <script>
-    // -------- Loading screen --------
-    const loadingScreen = document.getElementById("loadingScreen");
-    const progressFill = document.getElementById("progressFill");
 
-    let progress = 0;
-    const loadingInterval = setInterval(() => {
-        progress += 10;
-        if (progress > 100) progress = 100;
-        progressFill.style.width = progress + "%";
+let percent=0;
 
-        if (progress >= 100) {
-            clearInterval(loadingInterval);
-            setTimeout(() => {
-                loadingScreen.style.animation = "fadeOut 0.5s forwards";
-                setTimeout(() => {
-                    loadingScreen.style.display = "none";
-                    showSection("introSection");
-                }, 500);
-            }, 400);
-        }
-    }, 220);
+let interval=setInterval(()=>{
 
-    // -------- Sections --------
-    const sections = ["introSection", "formSection", "confirmSection", "successSection"];
+percent++;
 
-    function showSection(id) {
-        sections.forEach(s => {
-            document.getElementById(s).style.display = (s === id) ? "block" : "none";
-        });
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+document.getElementById("bar").style.width=percent+"%";
 
-    // -------- Elements --------
-    const startBtn = document.getElementById("startBtn");
-    const continueBtn = document.getElementById("continueBtn");
-    const backToIntroBtn = document.getElementById("backToIntroBtn");
-    const submitBtn = document.getElementById("submitBtn");
-    const editBtn = document.getElementById("editBtn");
+document.getElementById("percent").innerHTML=percent+"%";
 
-    const discordUsername = document.getElementById("discordUsername");
-    const discordID = document.getElementById("discordID");
-    const robloxUsername = document.getElementById("robloxUsername");
-    const banReason = document.getElementById("banReason");
+if(percent>=100){
 
-    const summaryDiscordUsername = document.getElementById("summaryDiscordUsername");
-    const summaryDiscordID = document.getElementById("summaryDiscordID");
-    const summaryRobloxUsername = document.getElementById("summaryRobloxUsername");
-    const summaryBanReason = document.getElementById("summaryBanReason");
+clearInterval(interval);
 
-    // -------- Navigation --------
-    startBtn.addEventListener("click", () => {
-        showSection("formSection");
-    });
+setTimeout(()=>{
 
-    backToIntroBtn.addEventListener("click", () => {
-        showSection("introSection");
-    });
+document.getElementById("loading").classList.add("hidden");
 
-    continueBtn.addEventListener("click", () => {
-        const fields = [discordUsername, discordID, robloxUsername, banReason];
-        let valid = true;
+document.getElementById("welcome").classList.remove("hidden");
 
-        fields.forEach(f => {
-            if (!f.value.trim()) {
-                f.classList.add("error");
-                valid = false;
-            } else {
-                f.classList.remove("error");
-            }
-        });
+},800);
 
-        if (!valid) {
-            alert("Please fill out all fields before continuing.");
-            return;
-        }
+}
 
-        summaryDiscordUsername.textContent = discordUsername.value.trim();
-        summaryDiscordID.textContent = discordID.value.trim();
-        summaryRobloxUsername.textContent = robloxUsername.value.trim();
-        summaryBanReason.textContent = banReason.value.trim();
+},35);
 
-        showSection("confirmSection");
-    });
+function startForm(){
 
-    editBtn.addEventListener("click", () => {
-        showSection("formSection");
-    });
+document.getElementById("welcome").classList.add("hidden");
 
-    // -------- Webhook submit --------
-    submitBtn.addEventListener("click", () => {
-        const webhookURL = "https://discord.com/api/webhooks/1524320929956630639/gMfu-AsRphFY3QQqUXiKw3I0hUNCS4NzM5mLW1cPOWOQb9Ajz26CtJbVsf-wIiB5KgQb"; // ← replace with your Discord webhook
+document.getElementById("formBox").classList.remove("hidden");
 
-        const payload = {
-            embeds: [
-                {
-                    title: "New Ban Appeal – Bananapeeely's Community",
-                    color: 16763904,
-                    fields: [
-                        { name: "Discord Username", value: discordUsername.value.trim(), inline: true },
-                        { name: "Discord ID", value: discordID.value.trim(), inline: true },
-                        { name: "Roblox Username", value: robloxUsername.value.trim(), inline: false },
-                        { name: "Reason for Ban", value: banReason.value.trim(), inline: false }
-                    ],
-                    footer: {
-                        text: "Ban appeal submitted via Bananapeeely's Community portal"
-                    },
-                    timestamp: new Date().toISOString()
-                }
-            ]
-        };
+}
 
-        fetch(webhookURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        }).catch(() => {
-            // Silent fail; you can log if needed
-        });
+async function confirmSend(){
 
-        showSection("successSection");
-    });
+let discordUser=document.getElementById("discordUser").value.trim();
+
+let discordID=document.getElementById("discordID").value.trim();
+
+let roblox=document.getElementById("robloxUser").value.trim();
+
+let reason=document.getElementById("reason").value.trim();
+
+if(discordUser==""||discordID==""||roblox==""||reason==""){
+
+alert("Please fill out all fields.");
+
+return;
+
+}
+
+let okay=confirm("Are you happy with this?");
+
+if(!okay) return;
+
+const webhook="https://discord.com/api/webhooks/1524320929956630639/gMfu-AsRphFY3QQqUXiKw3I0hUNCS4NzM5mLW1cPOWOQb9Ajz26CtJbVsf-wIiB5KgQb";
+
+let embed={
+
+title:"🍌 New Ban Appeal",
+
+color:16766720,
+
+fields:[
+
+{
+
+name:"Discord Username",
+
+value:discordUser,
+
+inline:false
+
+},
+
+{
+
+name:"Discord ID",
+
+value:discordID,
+
+inline:false
+
+},
+
+{
+
+name:"Roblox Username",
+
+value:roblox,
+
+inline:false
+
+},
+
+{
+
+name:"Reason for Ban",
+
+value:reason,
+
+inline:false
+
+}
+
+],
+
+footer:{
+
+text:"Bananapeeely's Community"
+
+},
+
+timestamp:new Date()
+
+};
+
+try{
+
+await fetch(webhook,{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+embeds:[embed]
+
+})
+
+});
+
+document.getElementById("formBox").classList.add("hidden");
+
+document.getElementById("success").classList.remove("hidden");
+
+}catch(e){
+
+alert("Failed to send.");
+
+}
+
+}
+
 </script>
 
 </body>
 </html>
-
